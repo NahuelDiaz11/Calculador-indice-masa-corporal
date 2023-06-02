@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Calculadora IMC</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <style>
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            margin-top: 100px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Calculadora de IMC</h2>
+        <form>
+            <div class="form-group">
+                <label for="peso">Peso (kg):</label>
+                <input type="number" class="form-control" id="peso" step="0.01">
+            </div>
+            <div class="form-group">
+                <label for="altura">Altura (m):</label>
+                <input type="number" class="form-control" id="altura" step="0.01">
+            </div>
+            <button type="button" class="btn btn-primary" onclick="calcularIMC()">Calcular IMC</button>
+            <div id="resultado"></div>
+        </form>
+    </div>
+
+    <script>
+        function calcularIMC() {
+            let peso = parseFloat(document.getElementById('peso').value);
+            let altura = parseFloat(document.getElementById('altura').value);
+            
+            if (isNaN(peso) || isNaN(altura)) {
+                document.getElementById('resultado').innerHTML = "<div class='alert alert-danger'>Por favor, ingresa valores válidos.</div>";
+                return;
+            }
+            
+            let imc = peso / (altura * altura);
+            let interpretacion = "";
+            
+            if (imc < 18.5) {
+                interpretacion = "Peso Bajo";
+            } else if (imc < 25) {
+                interpretacion = "Peso normal";
+            } else if (imc < 30) {
+                interpretacion = "Sobrepeso";
+            } else {
+                interpretacion = "Obesidad";
+            }
+            
+            document.getElementById('resultado').innerHTML = "<div class='alert alert-success'>Tu IMC es: " + imc.toFixed(2) + "<br/>Interpretación: " + interpretacion + "</div>";
+        }
+    </script>
+</body>
+</html>
